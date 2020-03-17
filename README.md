@@ -1,6 +1,6 @@
-# Circuit Timer App Backend
+# Circuit Training Timers App Back-End
 
-REST API (MongoDB, Express, NodeJS) back-end for mobile fitness application.
+Mongo/Express/Node back-end for Circuit Training Timers app.
 
 ***UNDER CONSTRUCTION***
 

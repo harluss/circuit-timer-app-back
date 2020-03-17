@@ -30,10 +30,10 @@ app.use(cors());
 app.use(helmet());
 app.use(express.json());
 
-const authRoutes = require('./routes/auth-routes');
+const authRoutes = require('./routes/user-routes');
 const timersRoutes = require('./routes/timers-routes');
 
-app.use('/api/auth', authRoutes);
+app.use('/api/user', authRoutes);
 app.use('/api/timers', timersRoutes);
 
 app.use(error);

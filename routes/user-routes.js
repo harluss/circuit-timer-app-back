@@ -1,11 +1,11 @@
 const router = require('express').Router();
-const { signup, login } = require('../controllers/auth-controller');
+const { signup, login } = require('../controllers/user-controller');
 const authPassport = require('../helpers/auth-passport');
 
-// Requests to /api/auth/signup
+// Requests to /api/user/signup
 router.post('/signup', authPassport('signup'), signup);
 
-// Requests to /api/auth/login
+// Requests to /api/user/login
 router.post('/login', authPassport('login'), login);
 
 // To be used with passport

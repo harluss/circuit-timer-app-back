@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const TimerSchema = new mongoose.Schema({
+const TimerSchema = new Schema({
     name: {
         type: String,
         required: true,
@@ -16,6 +17,11 @@ const TimerSchema = new mongoose.Schema({
     },
     rests_timer: {
         type: Number,
+        required: true
+    },
+    creator: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
         required: true
     }
 }, {

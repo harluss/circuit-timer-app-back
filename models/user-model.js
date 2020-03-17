@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 const bcrypt = require('bcryptjs');
 const BCRYPT_SALT_ROUNDS = 10;
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = new Schema({
     email: {
         type: String,
         required: true,
@@ -19,7 +20,11 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true
-    }
+    },
+    timers: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Timer'
+    }]
 }, {
     timestamps: true
 });
