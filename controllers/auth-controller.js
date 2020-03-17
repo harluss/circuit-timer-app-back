@@ -1,31 +1,23 @@
-const User = require('../models/user-model');
-const { OK, CREATED, NO_CONTENT, NOT_FOUND, getStatusText } = require('http-status-codes');
-const brcypt = require('bcryptjs');
+const { OK, CREATED, getStatusText } = require('http-status-codes');
+const signToken = require('../helpers/sign-token');
 
-exports.signup = async (req, res, next) => {
-    const { email, name, password } = req.body;
-    const SALT_ROUNDS = 10;
+exports.signup = (req, res, next) => {
+    const savedUser = req.user;
 
-    try {
-        const hashedPassword = await brcypt.hash(password, SALT_ROUNDS);
-        const user = new User({
-            email: email,
-            name: name,
-            password: hashedPassword
+    res.status(CREATED)
+        .json({
+            result: getStatusText(CREATED),
+            data: savedUser
         });
-        const savedUser = await user.save();
-
-        res.status(CREATED)
-            .json({
-                result: getStatusText(CREATED),
-                data: savedUser
-            });
-    } catch (err) {
-        next(err);
-    }
 };
 
-exports.login = async (req, res, next) => {
-    // User login
-    res.send('User login');
+exports.login = (req, res, next) => {
+    const { id } = req.user;
+    const token = signToken(id);
+
+    res.status(OK)
+        .json({
+            result: getStatusText(OK),
+            data: { 'token': token }
+        });
 };

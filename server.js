@@ -9,9 +9,9 @@ const error = require('./helpers/error');
 dotenv.config();
 db.connectDB();
 
-// TODO: login - passport
+// TODO: login - passport using social media (google, facebook, github)
 // TODO: validation - joi or express-validator
-// TODO: add helpers (auth, validation)
+// TODO: add helpers (validation)
 // TODO: connect users and timers
 // TODO: set config file (keys, environments (dev, test, prod), .env vars)
 // TODO: handle db connection errors
@@ -22,6 +22,9 @@ db.connectDB();
 // TODO: documentation
 // TODO: expand timer model
 // TODO: indexes as interfaces?
+// TODO: Update README.md
+// TODO: Password reset + mail module?
+// TODO: Delete User
 
 app.use(cors());
 app.use(helmet());
