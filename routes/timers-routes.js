@@ -1,16 +1,17 @@
 const router = require('express').Router();
 const { getTimers, getTimer, createTimer, updateTimer, deleteTimer } = require('../controllers/timers-controller');
-const authPassport = require('../helpers/auth-passport');
+const authenticate = require('../helpers/authenticate');
+const { validateInput, schemas } = require('../config/validation');
 
 // Requests to /api/timers
 router.route('/')
-    .get(authPassport('jwt'), getTimers)
-    .post(authPassport('jwt'), createTimer);
+    .get(authenticate('jwt'), getTimers)
+    .post(validateInput(schemas.timer), authenticate('jwt'), createTimer);
 
 // Requests to /api/timers/:id
 router.route('/:timerId')
-    .get(authPassport('jwt'), getTimer)
-    .put(authPassport('jwt'), updateTimer)
-    .delete(authPassport('jwt'), deleteTimer);
+    .get(authenticate('jwt'), getTimer)
+    .put(validateInput(schemas.timer), authenticate('jwt'), updateTimer)
+    .delete(authenticate('jwt'), deleteTimer);
 
 module.exports = router;

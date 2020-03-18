@@ -5,7 +5,8 @@ const TimerSchema = new Schema({
     name: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        trim: true
     },
     rounds_number: {
         type: Number,

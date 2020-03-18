@@ -3,10 +3,10 @@ const User = require('../models/user-model');
 const { OK, CREATED, NO_CONTENT, NOT_FOUND, getStatusText } = require('http-status-codes');
 
 exports.getTimers = async (req, res, next) => {
-    const user = req.user.id;
+    const userId = req.user.id;
 
     try {
-        const timers = await Timer.find({ creator: user });
+        const timers = await Timer.find({ creator: userId });
 
         res.status(OK)
             .json({
@@ -21,15 +21,16 @@ exports.getTimers = async (req, res, next) => {
 
 exports.getTimer = async (req, res, next) => {
     const timerId = req.params.timerId;
-    const user = req.user.id;
+    const userId = req.user.id;
 
     try {
-        const timer = await Timer.findOne({ _id: timerId, creator: user });
+        const timer = await Timer.findOne({ _id: timerId, creator: userId });
 
         if (!timer) {
-            const error = new Error(getStatusText(NOT_FOUND));
-            error.statusCode = NOT_FOUND;
-            throw error;
+            return res.status(NOT_FOUND)
+                .json({
+                    result: getStatusText(NOT_FOUND)
+                });
         };
 
         res.status(OK)
@@ -66,19 +67,20 @@ exports.createTimer = async (req, res, next) => {
 exports.updateTimer = async (req, res, next) => {
     const { name, rounds_number, rounds_timer, rests_timer } = req.body;
     const timerId = req.params.timerId;
-    const user = req.user.id;
+    const userId = req.user.id;
 
     try {
         const updatedTimer = await Timer.findOneAndUpdate(
-            { _id: timerId, creator: user },
+            { _id: timerId, creator: userId },
             { name, rounds_number, rounds_timer, rests_timer },
             { new: true }
         );
 
         if (!updatedTimer) {
-            const error = new Error(getStatusText(NOT_FOUND));
-            error.statusCode = NOT_FOUND;
-            throw error;
+            return res.status(NOT_FOUND)
+                .json({
+                    result: getStatusText(NOT_FOUND)
+                });
         };
 
         res.status(OK)
@@ -99,9 +101,10 @@ exports.deleteTimer = async (req, res, next) => {
         const removedTimer = await Timer.findOneAndRemove({ _id: timerId, creator: userId });
 
         if (!removedTimer) {
-            const error = new Error(getStatusText(NOT_FOUND));
-            error.statusCode = NOT_FOUND;
-            throw error;
+            return res.status(NOT_FOUND)
+                .json({
+                    result: getStatusText(NOT_FOUND)
+                });
         };
 
         const user = await User.findById(userId);

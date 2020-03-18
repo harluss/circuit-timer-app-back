@@ -2,7 +2,7 @@ const dotenv = require('dotenv');
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
-const db = require('./config/db');
+const db = require('./config/database');
 const app = express();
 const error = require('./helpers/error');
 
@@ -10,13 +10,12 @@ dotenv.config();
 db.connectDB();
 
 // TODO: login - passport using social media (google, facebook, github)
-// TODO: validation - joi or express-validator
-// TODO: add helpers (validation)
-// TODO: connect users and timers
 // TODO: set config file (keys, environments (dev, test, prod), .env vars)
 // TODO: handle db connection errors
 // TODO: move strings to seperate file
 // TODO: add getTimers sorting (date, name, length?)
+// TODO: add customer errors to passport
+// TODO: add regex to name and password validation
 // TODO: tests - mocha/chai or jest
 // TODO: logging?
 // TODO: documentation
