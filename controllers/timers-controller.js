@@ -98,23 +98,20 @@ exports.deleteTimer = async (req, res, next) => {
     const userId = req.user.id;
 
     try {
-        const removedTimer = await Timer.findOneAndRemove({ _id: timerId, creator: userId });
+        const timer = await Timer.findOne({ _id: timerId, creator: userId });
 
-        if (!removedTimer) {
+        if (!timer) {
             return res.status(NOT_FOUND)
                 .json({
                     result: getStatusText(NOT_FOUND)
                 });
         };
 
-        const user = await User.findById(userId);
-        await user.timers.pull(timerId);
-        await user.save();
+        await timer.remove();
 
         res.status(NO_CONTENT)
             .json({
-                result: getStatusText(NO_CONTENT),
-                data: removedTimer
+                result: getStatusText(NO_CONTENT)
             });
     } catch (err) {
         next(err);

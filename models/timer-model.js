@@ -29,4 +29,16 @@ const TimerSchema = new Schema({
     timestamps: true
 });
 
-module.exports = mongoose.model('timer', TimerSchema);
+TimerSchema.pre('remove', async function (next) {
+    try {
+        await mongoose.model('User').findOneAndUpdate(
+            { _id: this.creator },
+            { $pull: { timers: this.id } },
+            { new: true }
+        );
+    } catch (err) {
+        next(err);
+    }
+});
+
+module.exports = mongoose.model('Timer', TimerSchema);

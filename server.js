@@ -14,7 +14,7 @@ db.connectDB();
 // TODO: handle db connection errors
 // TODO: move strings to seperate file
 // TODO: add getTimers sorting (date, name, length?)
-// TODO: add customer errors to passport
+// TODO: add custom errors to passport
 // TODO: add regex to name and password validation
 // TODO: tests - mocha/chai or jest
 // TODO: logging?
@@ -23,16 +23,15 @@ db.connectDB();
 // TODO: indexes as interfaces?
 // TODO: Update README.md
 // TODO: Password reset + mail module?
-// TODO: Delete User
 
 app.use(cors());
 app.use(helmet());
 app.use(express.json());
 
-const authRoutes = require('./routes/user-routes');
+const usersRoutes = require('./routes/users-routes');
 const timersRoutes = require('./routes/timers-routes');
 
-app.use('/api/user', authRoutes);
+app.use('/api/user', usersRoutes);
 app.use('/api/timers', timersRoutes);
 
 app.use(error);

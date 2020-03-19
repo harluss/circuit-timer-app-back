@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { signup, login } = require('../controllers/user-controller');
+const { signup, login, deleteUser } = require('../controllers/users-controller');
 const authenticate = require('../helpers/authenticate');
 const { validateInput, schemas } = require('../config/validation');
 
@@ -8,6 +8,9 @@ router.post('/signup', validateInput(schemas.signup), authenticate('signup'), si
 
 // Requests to /api/user/login
 router.post('/login', validateInput(schemas.login), authenticate('login'), login);
+
+// Requests to /api/user/
+router.delete('/', authenticate('jwt'), deleteUser);
 
 // To be used with passport
 // router.get('/google');

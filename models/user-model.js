@@ -41,4 +41,18 @@ UserSchema.pre('save', async function (next) {
     }
 });
 
-module.exports = mongoose.model('user', UserSchema);
+UserSchema.pre('remove', async function (next) {
+    try {
+        await mongoose.model('Timer').deleteMany({ creator: this.id });
+    } catch (err) {
+        next(err);
+    }
+});
+
+UserSchema.options.toJSON = {
+    transform(doc, ret) {
+        delete ret.password;
+    }
+}
+
+module.exports = mongoose.model('User', UserSchema);
