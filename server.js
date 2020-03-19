@@ -9,6 +9,8 @@ const error = require('./helpers/error');
 dotenv.config();
 db.connectDB();
 
+const PORT = process.env.PORT || 5000;
+
 // TODO: login - passport using social media (google, facebook, github)
 // TODO: set config file (keys, environments (dev, test, prod), .env vars)
 // TODO: handle db connection errors
@@ -36,5 +38,4 @@ app.use('/api/timers', timersRoutes);
 
 app.use(error);
 
-const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Listening on port ${PORT}.`));

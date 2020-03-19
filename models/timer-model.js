@@ -5,7 +5,6 @@ const TimerSchema = new Schema({
     name: {
         type: String,
         required: true,
-        unique: true,
         trim: true
     },
     rounds_number: {
@@ -27,6 +26,18 @@ const TimerSchema = new Schema({
     }
 }, {
     timestamps: true
+});
+
+TimerSchema.pre('save', async function (next) {
+    try {
+        await mongoose.model('User').findOneAndUpdate(
+            { _id: this.creator },
+            { $push: { timers: this.id } },
+            { new: true }
+        );
+    } catch (err) {
+        next(err);
+    }
 });
 
 TimerSchema.pre('remove', async function (next) {
