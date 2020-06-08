@@ -1,5 +1,4 @@
 const Timer = require('../models/timer-model');
-const User = require('../models/user-model');
 const { OK, CREATED, NO_CONTENT, NOT_FOUND, getStatusText } = require('http-status-codes');
 
 exports.getTimers = async (req, res, next) => {
@@ -48,7 +47,7 @@ exports.createTimer = async (req, res, next) => {
     const { id } = req.user;
 
     const timer = new Timer({ ...timerData, creator: id });
-    
+
     try {
         const savedTimer = await timer.save();
 

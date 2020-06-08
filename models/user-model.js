@@ -17,6 +17,7 @@ const UserSchema = new Schema({
         trim: true
     },
     password: {
+        // TODO: Password validation to be strengthened with regex for production build
         type: String,
         required: true,
         trim: true
@@ -24,7 +25,9 @@ const UserSchema = new Schema({
     timers: [{
         type: Schema.Types.ObjectId,
         ref: 'Timer'
-    }]
+    }],
+    resetToken: String,
+    resetTokenExpiration: Date,
 }, {
     timestamps: true
 });

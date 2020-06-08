@@ -1,23 +1,21 @@
 const router = require('express').Router();
-const { signup, login, deleteUser } = require('../controllers/users-controller');
+const { signup, login, deleteUser, getResetToken, resetPassword } = require('../controllers/users-controller');
 const authenticate = require('../helpers/authenticate');
 const { validateInput, schemas } = require('../config/validation');
 
-// Requests to /api/user/signup
+// Requests to /api/users/signup
 router.post('/signup', validateInput(schemas.signup), authenticate('signup'), signup);
 
-// Requests to /api/user/login
+// Requests to /api/users/login
 router.post('/login', validateInput(schemas.login), authenticate('login'), login);
 
-// Requests to /api/user/
+// Requests to /api/users/
 router.delete('/', authenticate('jwt'), deleteUser);
 
-// To be used with passport
-// router.get('/google');
-// router.get('/google/callback');
-// router.get('/facebook');
-// router.get('/facebook/callback');
-// router.get('/github');
-// router.get('/github/callback');
+// Requests to /api/users/reset/:email
+router.get('/reset/:email', getResetToken);
+
+// Requests to /api/users/reset/:token
+router.post('/reset/:token', resetPassword);
 
 module.exports = router;
