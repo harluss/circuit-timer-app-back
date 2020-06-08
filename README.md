@@ -19,7 +19,7 @@ Install Node packages with:
 ```
 npm install
 ```
-Remove `-sample` part of `.env-sample` file and provide required data:
+Remove `-sample` part of `.env-sample` file name and provide required data:
 * JWT secret
 * API key for [MongoDB](https://www.mongodb.com/)
 * API key for [SendGrid](https://sendgrid.com/)
@@ -29,6 +29,14 @@ Run in Development mode using Nodemon with:
 npm run start-dev
 ```
 
+To seed dummy users go to `seed/` folder and run:
+```
+node seed-data
+```
+Alternatively to wipe data run:
+```
+node clear-data
+```
 ### Packages
 ```
 "dependencies": {

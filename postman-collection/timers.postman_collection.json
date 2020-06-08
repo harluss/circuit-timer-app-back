@@ -30,13 +30,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/api/user/signup",
+							"raw": "{{URL}}/api/users/signup",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"api",
-								"user",
+								"users",
 								"signup"
 							]
 						},
@@ -58,7 +58,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\": \"test3@test.com\",\n\t\"password\": \"tester3\"\n}",
+							"raw": "{\n\t\"email\": \"bob1@test.com\",\n\t\"password\": \"password1\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -66,13 +66,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/api/user/login",
+							"raw": "{{URL}}/api/users/login",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"api",
-								"user",
+								"users",
 								"login"
 							]
 						},
@@ -92,13 +92,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{URL}}/api/user/",
+							"raw": "{{URL}}/api/users/",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"api",
-								"user",
+								"users",
 								""
 							]
 						},
@@ -380,7 +380,7 @@
 	],
 	"variable": [
 		{
-			"id": "7a2699aa-a755-4e6a-bbb6-c840cc5b09e7",
+			"id": "857dc365-bb3a-48f3-a2c8-3853a6967689",
 			"key": "URL",
 			"value": "http://localhost:5000",
 			"type": "string"

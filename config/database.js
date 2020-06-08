@@ -12,3 +12,7 @@ exports.connectDB = async () => {
         console.log(`Connection to MongoDB FAILED: ${err.message}`);
     }
 };
+
+exports.disconnectDB = () => {
+    mongoose.disconnect(() => console.log('Disconnected from MongoDB.'));
+};
