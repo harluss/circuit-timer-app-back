@@ -1,0 +1,390 @@
+{
+	"info": {
+		"_postman_id": "d8b65a44-ef04-4478-8b5a-e9ef8b2ebc26",
+		"name": "Timers App NodeJS REST",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "User signup",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"test3@test.com\",\n\t\"name\": \"Bob\",\n\t\"password\": \"tester3\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/user/signup",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"signup"
+							]
+						},
+						"description": "Create a User"
+					},
+					"response": []
+				},
+				{
+					"name": "User login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"test3@test.com\",\n\t\"password\": \"tester3\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/user/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"login"
+							]
+						},
+						"description": "Login"
+					},
+					"response": []
+				},
+				{
+					"name": "User delete self",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJDaXJjdWl0IFRpbWVycyBBcHAiLCJzdWIiOiI1ZTczNWJjOGY1NmRiYjRlMTkxM2ExOTYiLCJpYXQiOjE1ODQ2MTg1NzYsImV4cCI6MTU4NDYyOTM3Nn0.x8TQAvVQr0K5_eVFSbgeRgE1QnFpnnE20EvzAmKhezo",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/user/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"user",
+								""
+							]
+						},
+						"description": "Delete user (self-delete)"
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot password",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/users/reset/:email",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"reset",
+								":email"
+							],
+							"variable": [
+								{
+									"key": "email",
+									"value": "test1@test.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"newPassword\": \"password1\" \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/users/reset/:token",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"reset",
+								":token"
+							],
+							"variable": [
+								{
+									"key": "token",
+									"value": "isb439t94q3gfdv87h8vh84bg8v"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Timers",
+			"item": [
+				{
+					"name": "Get all timers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJDaXJjdWl0IFRpbWVycyBBcHAiLCJzdWIiOiI1ZTcxNTFiNmVjNWFhYTIxM2VkMzhiYWQiLCJpYXQiOjE1ODQ1NzA0MDUsImV4cCI6MTU4NDU4MTIwNX0.Da57pzNruHO_ng3bIM3boUKFTXucIUE7vjx3VZhhcVo",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/timers",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"timers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get timer by Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJDaXJjdWl0IFRpbWVycyBBcHAiLCJzdWIiOiI1ZTcxNTFiNmVjNWFhYTIxM2VkMzhiYWQiLCJpYXQiOjE1ODQ0ODgwNzcsImV4cCI6MTU4NDQ5ODg3N30.1Zrx3y-hWnNzqyyPM1OFC2b38_IMh00z8INc7dZL_9k",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/timers/:timerId",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"timers",
+								":timerId"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "timerId",
+									"value": "5e7151d6ec5aaa213ed38bae"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new timer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJDaXJjdWl0IFRpbWVycyBBcHAiLCJzdWIiOiI1ZTczNWI1OTJkZWQ4NTRkNjIyYmVlY2QiLCJpYXQiOjE1ODQ2MzQ0NTksImV4cCI6MTU4NDY0NTI1OX0.sJFKUTpvTa7YthBjRyOLTc0D__mVDMrTuhZNFbiWPvA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"New thing 9000\",\n\t\"rounds_number\": 5,\n\t\"rounds_timer\": 5,\n\t\"rests_timer\": 155\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/timers",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"timers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete timer",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJDaXJjdWl0IFRpbWVycyBBcHAiLCJzdWIiOiI1ZTcxNTFiNmVjNWFhYTIxM2VkMzhiYWQiLCJpYXQiOjE1ODQ1NzA0MDUsImV4cCI6MTU4NDU4MTIwNX0.Da57pzNruHO_ng3bIM3boUKFTXucIUE7vjx3VZhhcVo",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/timers/:timerId",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"timers",
+								":timerId"
+							],
+							"variable": [
+								{
+									"key": "timerId",
+									"value": "5e72c6df5276dcc1fef9f5ab"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update timer",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJDaXJjdWl0IFRpbWVycyBBcHAiLCJzdWIiOiI1ZTczNWI1OTJkZWQ4NTRkNjIyYmVlY2QiLCJpYXQiOjE1ODQ2MzQ0NTksImV4cCI6MTU4NDY0NTI1OX0.sJFKUTpvTa7YthBjRyOLTc0D__mVDMrTuhZNFbiWPvA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Over 9000\",\n\t\"rounds_number\": 9001,\n\t\"rounds_timer\": 9002,\n\t\"rests_timer\": 9003\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/timers/:timerId",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"timers",
+								":timerId"
+							],
+							"variable": [
+								{
+									"key": "timerId",
+									"value": "5e739d4665b15c46e5644ae4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "b21ef5e6-7d77-43bd-8caa-96ef9b5db54f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "5b49085a-b9f7-4f77-8680-894d8ddb3f8e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "7a2699aa-a755-4e6a-bbb6-c840cc5b09e7",
+			"key": "URL",
+			"value": "http://localhost:5000",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
