@@ -3,8 +3,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
-const User = require('../models/user-model');
-const bcrypt = require('bcryptjs');
+const { signup, login, findUserbyId } = require('../services/users-service');
 
 passport.use(
   'signup',
@@ -14,18 +13,16 @@ passport.use(
       passReqToCallback: true,
     },
     async (req, email, password, done) => {
-      try {
-        const user = await User.findOne({ email });
+      const { name } = req.body;
 
-        if (user) {
+      try {
+        const newUser = await signup(email, name, password);
+
+        if (!newUser) {
           return done(null, false);
         }
 
-        const name = req.body.name;
-        const newUser = new User({ email, name, password });
-        const savedUser = await newUser.save();
-
-        done(null, savedUser);
+        done(null, newUser);
       } catch (err) {
         done(err, false);
       }
@@ -41,15 +38,9 @@ passport.use(
     },
     async (email, password, done) => {
       try {
-        const user = await User.findOne({ email });
+        const user = await login(email, password);
 
         if (!user) {
-          return done(null, false);
-        }
-
-        const isCorrect = await bcrypt.compare(password, user.password);
-
-        if (!isCorrect) {
           return done(null, false);
         }
 
@@ -69,7 +60,7 @@ passport.use(
     },
     async (payload, done) => {
       try {
-        const user = await User.findById(payload.sub);
+        const user = await findUserbyId(payload.sub);
 
         if (!user) {
           return done(null, false);

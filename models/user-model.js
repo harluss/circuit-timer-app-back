@@ -1,7 +1,6 @@
-const config = require('../config/config');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const bcrypt = require('bcryptjs');
+const { hashPassword } = require('../helpers/passwords');
 
 const UserSchema = new Schema(
   {
@@ -16,12 +15,15 @@ const UserSchema = new Schema(
       type: String,
       required: true,
       trim: true,
+      minlength: 3,
+      maxlength: 30,
     },
     password: {
-      // TODO: Password validation to be strengthened with regex for production build
+      // TODO: Password validation to be strengthened with regex
       type: String,
       required: true,
       trim: true,
+      minlength: 8,
     },
     timers: [
       {
@@ -43,7 +45,7 @@ UserSchema.pre('save', async function (next) {
       return next();
     }
 
-    this.password = await bcrypt.hash(this.password, config.bcrypt.saltRounds);
+    this.password = await hashPassword(this.password);
   } catch (err) {
     next(err);
   }

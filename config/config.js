@@ -10,6 +10,10 @@ module.exports = {
     secret: process.env.JWT_SECRET,
     expiry: '3h',
   },
+  resetToken: {
+    // milliseconds
+    expiry: 60 * 60 * 1000,
+  },
   bcrypt: {
     saltRounds: 10,
   },

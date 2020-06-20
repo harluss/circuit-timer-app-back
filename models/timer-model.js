@@ -7,18 +7,26 @@ const TimerSchema = new Schema(
       type: String,
       required: true,
       trim: true,
+      minlength: 3,
+      maxlength: 30,
     },
     rounds_number: {
       type: Number,
       required: true,
+      min: 1,
+      max: 100,
     },
     rounds_timer: {
       type: Number,
       required: true,
+      min: 1,
+      max: 3600,
     },
     rests_timer: {
       type: Number,
       required: true,
+      min: 0,
+      max: 3600,
     },
     creator: {
       type: Schema.Types.ObjectId,
@@ -61,7 +69,15 @@ TimerSchema.pre('remove', async function (next) {
 
 TimerSchema.options.toJSON = {
   transform(doc, ret) {
-    delete ret.__v;
+    return {
+      _id: ret._id,
+      name: ret.name,
+      rounds_timer: ret.rounds_timer,
+      rounds_number: ret.rounds_number,
+      rests_timer: ret.rests_timer,
+      createdAt: ret.createdAt,
+      updatedAt: ret.updatedAt,
+    };
   },
 };
 
