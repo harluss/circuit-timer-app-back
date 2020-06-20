@@ -1,6 +1,6 @@
+const sendgridMail = require('@sendgrid/mail');
 const config = require('../config/config');
 const strings = require('../config/strings');
-const sendgridMail = require('@sendgrid/mail');
 
 sendgridMail.setApiKey(config.sendgrid.apiKey);
 
@@ -11,7 +11,7 @@ module.exports = (email, token) => {
     subject: strings.sendGrid.emailTopic,
     text: strings.sendGrid.emailContent(
       token,
-      config.resetToken.expiry / (1000 * 60)
+      config.resetToken.expiry / (1000 * 60),
     ),
   };
 

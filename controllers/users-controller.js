@@ -15,7 +15,7 @@ const {
 } = require('../services/users-service');
 
 exports.signup = (req, res, next) => {
-  const user = req.user;
+  const { user } = req;
 
   res.status(CREATED).json({
     result: getStatusText(CREATED),
@@ -29,12 +29,12 @@ exports.login = (req, res, next) => {
 
   res.status(OK).json({
     result: getStatusText(OK),
-    data: { token: token },
+    data: { token },
   });
 };
 
 exports.deleteUser = async (req, res, next) => {
-  const user = req.user;
+  const { user } = req;
 
   try {
     await deleteUser(user);

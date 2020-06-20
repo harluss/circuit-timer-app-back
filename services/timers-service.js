@@ -15,7 +15,7 @@ exports.updateTimer = async (timerData, timerId, userId) =>
   await Timer.findOneAndUpdate(
     { _id: timerId, creator: userId },
     { ...timerData },
-    { new: true }
+    { new: true },
   );
 
 exports.deleteTimer = async (timerId, userId) => {

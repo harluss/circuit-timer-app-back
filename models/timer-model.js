@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const TimerSchema = new Schema(
   {
@@ -36,7 +37,7 @@ const TimerSchema = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 TimerSchema.pre('save', async function (next) {
@@ -46,7 +47,7 @@ TimerSchema.pre('save', async function (next) {
       .findOneAndUpdate(
         { _id: this.creator },
         { $push: { timers: this.id } },
-        { new: true }
+        { new: true },
       );
   } catch (err) {
     next(err);
@@ -60,7 +61,7 @@ TimerSchema.pre('remove', async function (next) {
       .findOneAndUpdate(
         { _id: this.creator },
         { $pull: { timers: this.id } },
-        { new: true }
+        { new: true },
       );
   } catch (err) {
     next(err);

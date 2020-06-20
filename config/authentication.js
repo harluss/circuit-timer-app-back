@@ -1,8 +1,8 @@
-const config = require('./config');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const JwtStrategy = require('passport-jwt').Strategy;
-const ExtractJwt = require('passport-jwt').ExtractJwt;
+const { ExtractJwt } = require('passport-jwt');
+const config = require('./config');
 const { signup, login, findUserbyId } = require('../services/users-service');
 
 passport.use(
@@ -19,15 +19,15 @@ passport.use(
         const newUser = await signup(email, name, password);
 
         if (!newUser) {
-          return done(null, false);
+          done(null, false);
         }
 
         done(null, newUser);
       } catch (err) {
         done(err, false);
       }
-    }
-  )
+    },
+  ),
 );
 
 passport.use(
@@ -41,15 +41,15 @@ passport.use(
         const user = await login(email, password);
 
         if (!user) {
-          return done(null, false);
+          done(null, false);
         }
 
         done(null, user);
       } catch (err) {
         done(err, false);
       }
-    }
-  )
+    },
+  ),
 );
 
 passport.use(
@@ -63,13 +63,13 @@ passport.use(
         const user = await findUserbyId(payload.sub);
 
         if (!user) {
-          return done(null, false);
+          done(null, false);
         }
 
         done(null, user);
       } catch (err) {
         done(err, false);
       }
-    }
-  )
+    },
+  ),
 );

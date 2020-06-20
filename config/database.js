@@ -1,5 +1,5 @@
-const config = require('./config');
 const mongoose = require('mongoose');
+const config = require('./config');
 
 exports.connectDB = async () => {
   try {
@@ -11,7 +11,7 @@ exports.connectDB = async () => {
         useCreateIndex: true,
         useFindAndModify: false,
       },
-      () => console.log('Connected to MongoDB.')
+      () => console.log('Connected to MongoDB.'),
     );
   } catch (err) {
     console.log(`Connection to MongoDB FAILED: ${err.message}`);

@@ -8,7 +8,7 @@ async function seedUsers() {
 
   if (existingUsers.length > 0) {
     console.log(
-      'Existing users found. Clear DB by running "node seed/clear-data" and try seeding again.'
+      'Existing users found. Clear DB by running "node seed/clear-data" and try seeding again.',
     );
 
     return db.disconnectDB();
@@ -28,7 +28,7 @@ async function seedUsers() {
   const usersFromDB = await User.find();
   console.log('Seeded Users:', usersFromDB);
 
-  db.disconnectDB();
+  return db.disconnectDB();
 }
 
 seedUsers();

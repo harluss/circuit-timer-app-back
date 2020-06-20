@@ -1,12 +1,12 @@
-const config = require('./config/config');
-const db = require('./config/database');
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
+const morgan = require('morgan');
+const config = require('./config/config');
+const db = require('./config/database');
 const error = require('./middleware/error');
 const usersRoutes = require('./routes/users-routes');
 const timersRoutes = require('./routes/timers-routes');
-const morgan = require('morgan');
 
 const PORT = config.port;
 const app = express();

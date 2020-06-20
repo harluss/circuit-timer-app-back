@@ -5,7 +5,7 @@ module.exports = (error, req, res, next) => {
 
   res.status(statusCode).json({
     result: getStatusText(statusCode),
-    message: message,
-    data: data,
+    message,
+    data,
   });
 };

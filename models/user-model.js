@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 const { hashPassword } = require('../helpers/passwords');
 
 const UserSchema = new Schema(
@@ -36,7 +37,7 @@ const UserSchema = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 UserSchema.pre('save', async function (next) {
