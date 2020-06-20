@@ -1,15 +1,16 @@
+const config = require('./config');
 const sendgridMail = require('@sendgrid/mail');
 
-sendgridMail.setApiKey(process.env.SENDGRID_API_KEY);
+sendgridMail.setApiKey(config.sendgrid.apiKey);
 
 module.exports = (email, token) => {
   // TODO: Exact message to be updated based on front-end requirements
   const message = {
     to: email,
-    from: process.env.APP_EMAIL,
+    from: config.app.email,
     subject: 'Password reset token',
-    text: `Password reset token: ${token} (expires in 1 hour).` 
-  }
+    text: `Password reset token: ${token} (expires in ${config.jwt.expiry}).`,
+  };
 
   sendgridMail.send(message);
-}
+};

@@ -1,61 +1,71 @@
+const config = require('../config/config');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcryptjs');
-const BCRYPT_SALT_ROUNDS = 10;
 
-const UserSchema = new Schema({
+const UserSchema = new Schema(
+  {
     email: {
-        type: String,
-        required: true,
-        unique: true,
-        lowercase: true,
-        trim: true
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
     },
     name: {
-        type: String,
-        required: true,
-        trim: true
+      type: String,
+      required: true,
+      trim: true,
     },
     password: {
-        // TODO: Password validation to be strengthened with regex for production build
-        type: String,
-        required: true,
-        trim: true
+      // TODO: Password validation to be strengthened with regex for production build
+      type: String,
+      required: true,
+      trim: true,
     },
-    timers: [{
+    timers: [
+      {
         type: Schema.Types.ObjectId,
-        ref: 'Timer'
-    }],
+        ref: 'Timer',
+      },
+    ],
     resetToken: String,
     resetTokenExpiration: Date,
-}, {
-    timestamps: true
-});
+  },
+  {
+    timestamps: true,
+  }
+);
 
 UserSchema.pre('save', async function (next) {
-    try {
-        if (!this.isModified('password')) {
-            return next();
-        }
-
-        this.password = await bcrypt.hash(this.password, BCRYPT_SALT_ROUNDS);
-    } catch (err) {
-        next(err);
+  try {
+    if (!this.isModified('password')) {
+      return next();
     }
+
+    this.password = await bcrypt.hash(this.password, config.bcrypt.saltRounds);
+  } catch (err) {
+    next(err);
+  }
 });
 
 UserSchema.pre('remove', async function (next) {
-    try {
-        await mongoose.model('Timer').deleteMany({ creator: this.id });
-    } catch (err) {
-        next(err);
-    }
+  try {
+    await mongoose.model('Timer').deleteMany({ creator: this.id });
+  } catch (err) {
+    next(err);
+  }
 });
 
 UserSchema.options.toJSON = {
-    transform(doc, ret) {
-        delete ret.password;
-    }
-}
+  transform(doc, ret) {
+    return {
+      _id: ret._id,
+      email: ret.email,
+      name: ret.name,
+      timers: ret.timers,
+    };
+  },
+};
 
 module.exports = mongoose.model('User', UserSchema);

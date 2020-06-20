@@ -1,8 +1,13 @@
+const config = require('../config/config');
 const jwt = require('jsonwebtoken');
 
-module.exports = userId => {
-    return jwt.sign({
-        iss: process.env.APP_NAME,
-        sub: userId
-    }, process.env.JWT_SECRET, { expiresIn: '3h' });
-}
+module.exports = (userId) => {
+  return jwt.sign(
+    {
+      iss: config.app.name,
+      sub: userId,
+    },
+    config.jwt.secret,
+    { expiresIn: config.jwt.expiry }
+  );
+};
