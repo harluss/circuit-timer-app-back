@@ -3,6 +3,7 @@ const {
   CREATED,
   NO_CONTENT,
   NOT_FOUND,
+  INTERNAL_SERVER_ERROR,
   getStatusText,
 } = require('http-status-codes');
 const {
@@ -57,6 +58,12 @@ exports.createTimer = async (req, res, next) => {
 
   try {
     const savedTimer = await addTimer(timerData, id);
+
+    if (!savedTimer) {
+      return res.status(INTERNAL_SERVER_ERROR).json({
+        result: getStatusText(INTERNAL_SERVER_ERROR),
+      });
+    }
 
     res.status(CREATED).json({
       result: getStatusText(CREATED),

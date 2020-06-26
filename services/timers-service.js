@@ -1,6 +1,7 @@
 const Timer = require('../models/timer-model');
 
-exports.getTimers = async (userId) => await Timer.find({ creator: userId });
+exports.getTimers = async (userId) =>
+  await Timer.find({ creator: userId }).sort({ createdAt: -1 });
 
 exports.getTimer = async (timerId, userId) =>
   await Timer.findOne({ _id: timerId, creator: userId });

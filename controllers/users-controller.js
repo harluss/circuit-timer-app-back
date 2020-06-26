@@ -3,6 +3,7 @@ const {
   CREATED,
   NO_CONTENT,
   BAD_REQUEST,
+  INTERNAL_SERVER_ERROR,
   getStatusText,
 } = require('http-status-codes');
 const strings = require('../config/strings');
@@ -37,7 +38,13 @@ exports.deleteUser = async (req, res, next) => {
   const { user } = req;
 
   try {
-    await deleteUser(user);
+    const deletedUser = await deleteUser(user);
+
+    if (!deletedUser) {
+      return res.status(INTERNAL_SERVER_ERROR).json({
+        result: getStatusText(INTERNAL_SERVER_ERROR),
+      });
+    }
 
     res.status(NO_CONTENT).json({
       result: getStatusText(NO_CONTENT),
